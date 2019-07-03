@@ -32,7 +32,7 @@ class BukuModel {
         return id!!
     }
 
-    fun getDeskripsi(): String {
+    fun getDesc(): String {
         return desc!!
     }
 
@@ -53,7 +53,7 @@ class BukuModel {
         this.id = id
     }
 
-    fun setDeskripsi(desc: String) {
+    fun setDesc(desc: String) {
         this.desc = desc
     }
 }

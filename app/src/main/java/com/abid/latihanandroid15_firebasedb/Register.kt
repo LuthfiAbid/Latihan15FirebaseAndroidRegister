@@ -20,11 +20,11 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         fAuth = FirebaseAuth.getInstance()
+
         btn_submit.setOnClickListener {
             var email = et_email.text.toString()
             var password = et_password.text.toString()
             var nama = et_nama.text.toString()
-
             helperPref = PrefsHelper(this)
             if (email.isNotEmpty() || password.isNotEmpty() || !email.equals("") || !password.equals("")
                 || et_email.length() == 6 || et_password.length() == 6

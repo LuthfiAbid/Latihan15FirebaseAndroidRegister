@@ -25,7 +25,7 @@ class BukuAdapter : RecyclerView.Adapter<BukuAdapter.BukuViewHolder> {
         p0.tv_nama.text = bukuModel.getNama()
         p0.tv_tanggal.text = bukuModel.getTanggal()
         p0.tv_judul.text = bukuModel.getJudul()
-//        p0.tv_deskripsi.text = bukuModel.getDeskripsi()
+        p0.tv_deskripsi.text = bukuModel.getDesc()
         p0.rc_view2.setOnClickListener {
             Toast.makeText(mContext, "Contoh touch listener", Toast.LENGTH_SHORT).show()
         }

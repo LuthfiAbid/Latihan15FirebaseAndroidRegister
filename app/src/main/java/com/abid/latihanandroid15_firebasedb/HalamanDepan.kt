@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log.e
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_halaman_depan.*
@@ -43,14 +44,14 @@ class HalamanDepan : AppCompatActivity() {
                 bukuAdapter = BukuAdapter(applicationContext, list)
                 rcView!!.adapter = bukuAdapter
             }
-
         })
         fab.setOnClickListener {
             startActivity(Intent(this, TambahData::class.java))
         }
         btn_logout.setOnClickListener {
+            Toast.makeText(this, "Anda telah logout!", Toast.LENGTH_SHORT).show()
             fAuth.signOut()
-            finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

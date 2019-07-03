@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log.e
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -27,9 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         helperPref = PrefsHelper(this)
         fAuth = FirebaseAuth.getInstance()
-        val gso = GoogleSignInOptions.Builder(
-            GoogleSignInOptions.DEFAULT_SIGN_IN
-        )
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
@@ -42,15 +41,26 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, Register::class.java))
         }
         btn_login.setOnClickListener {
-            if (et_email.length() == 0) {
+            if (!et_email.text.isNotEmpty() || !et_password.text.isNotEmpty()) {
                 et_email.error = "Email harus diisi!"
-            } else if (et_password.length() == 0) {
                 et_password.error = "Password harus diisi!"
             } else {
                 val intent = Intent(this, HalamanDepan::class.java)
                 PrefsHelper(this).setStatusInput(true)
                 PrefsHelper(this).setEmail(et_email.text.toString())
-                startActivity(intent)
+                fAuth.signInWithEmailAndPassword(et_email.text.toString(), et_password.text.toString())
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Welcome ${fAuth.currentUser!!.email}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(applicationContext, "user tidak ditemukan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
             }
         }
     }
@@ -94,11 +104,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val user = fAuth.currentUser
-        if (user != null) {
-            updateUI(user)
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val user = fAuth.currentUser
+//        if (user != null) {
+//            updateUI(user)
+//        }
+//    }
 }
