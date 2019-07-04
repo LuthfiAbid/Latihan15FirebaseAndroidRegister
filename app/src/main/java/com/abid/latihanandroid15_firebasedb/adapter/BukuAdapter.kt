@@ -1,8 +1,7 @@
-package com.abid.latihanandroid15_firebasedb
+package com.abid.latihanandroid15_firebasedb.adapter
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import java.text.FieldPosition
+import com.abid.latihanandroid15_firebasedb.model.BukuModel
+import com.abid.latihanandroid15_firebasedb.HalamanDepan
+import com.abid.latihanandroid15_firebasedb.R
 
 class BukuAdapter : RecyclerView.Adapter<BukuAdapter.BukuViewHolder> {
     lateinit var mContext: Context
