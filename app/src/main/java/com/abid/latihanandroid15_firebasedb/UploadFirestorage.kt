@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.provider.MediaStore
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -102,7 +101,7 @@ class UploadFirestorage : AppCompatActivity() {
         if (resultCode != Activity.RESULT_OK) {
             return
         }
-        when (requestCode) {s
+        when (requestCode) {
             REQUEST_IMAGE -> {
                 filePathImage = data?.data!!
                 try {
@@ -127,10 +126,12 @@ class UploadFirestorage : AppCompatActivity() {
         val ref: StorageReference = fStorageRef.child("images/$uid/${nameX}.${GetFileExtension(filePathImage)}")
         ref.putFile(filePathImage)
             .addOnSuccessListener {
-                dbRef = FirebaseDatabase.getInstance().getReference("images/${nameX}/$filePathImage)}")
-                dbRef.child("/nama").setValue(nameX)
                 progressDownload.visibility = GONE
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                ref.downloadUrl.addOnSuccessListener {
+                    dbRef = FirebaseDatabase.getInstance().getReference("images/")
+                    dbRef.child("urlImage/${helperPref.getCounterId()}").setValue(it.toString())
+                }
             }
             .addOnFailureListener {
                 e("TAGERROR", it.message)
